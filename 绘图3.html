@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+
+</body>
+</html>
+
+<script>
+    var canvas = document.querySelector('#canvas');
+    var ctx = canvas.getContext('2d');
+    var jd = 0;
+    var sd = 0;
+
+//    //    ***********
+//        var x1 = 810;
+//        var y1 = 100;
+//    var a = 5;
+//    var b = 1;
+    //    *****
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+
+
+    var array = [];
+    function Dian(x, y, color, sd, js) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.sd = sd;
+        this.js = js;
+
+    }
+
+    canvas.onmousedown = function (e) {
+        var getRandomColor = function () {
+            return '#' + (Math.random() * 0xffffff << 0).toString(16);
+        }
+        var color = getRandomColor();
+//        var sjx = Math.random() * innerWidth-60;
+//        var sjy = Math.random() * innerHeight-60;
+
+        var sjx = e.offsetX;
+        var sjy = e.offsetY;
+        array.push(new Dian(sjx, sjy, color, 0, Math.random() * 0.4));
+    };
+
+    Dian.prototype.action = function () {
+        this.sd += this.js;
+
+    };
+
+
+//    Dian.prototype.beisai = function () {
+////        var x1 = (this.x + 900) / 2;
+//        x1 += b;
+//        if (x1 > ((this.x + 900) / 2) + 120 || x1 < ((this.x + 900) / 2) - 120) {
+//            b = -b
+//        }
+////        var y1 = this.y;
+//        y1 += a;
+//        if (y1 > innerHeight || y1 < 20) {
+//            a = -a
+//        }
+//        ctx.beginPath();
+//        ctx.moveTo(this.x, this.y);
+//        ctx.bezierCurveTo(x1, y1, x1, y1, 900, 900);
+//        ctx.strokeStyle = 'blue';
+//        ctx.fillStyle = 'rgba(0,0,0,1)';
+//        ctx.fillRect(0, 0, innerWidth, innerHeight);
+//
+//        ctx.stroke();
+//    };
+
+
+    Dian.prototype.line = function (x1, y1, color, jd) {
+//        var a = Math.pow(2000,1/2)*Math.sin(jd);
+//        var b = Math.pow(2000,1/2)*Math.cos(jd);
+//        var c = 60*Math.sin(jd);
+//        var d = 60*Math.cos(jd);
+//
+
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI / 4)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI / 4)));
+        ctx.lineTo(x1 + 80 * Math.sin(jd + (Math.PI * 3 / 8)), y1 + 80 * Math.cos(jd + (Math.PI * 3 / 8)));
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI / 2)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI / 2)));
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI * 3 / 4)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI * 3 / 4)));
+        ctx.lineTo(x1 + 80 * Math.sin(jd + (Math.PI * 7 / 8)), y1 + 80 * Math.cos(jd + (Math.PI * 7 / 8)));
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI)));
+        ctx.closePath();
+        ctx.fillStyle = color;
+
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI * 5 / 4)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI * 5 / 4)));
+        ctx.lineTo(x1 + 80 * Math.sin(jd + (Math.PI * 11 / 8)), y1 + 80 * Math.cos(jd + (Math.PI * 11 / 8)));
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI * 6 / 4)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI * 6 / 4)));
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI * 7 / 4)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI * 7 / 4)));
+        ctx.lineTo(x1 + 80 * Math.sin(jd + (Math.PI * 15 / 8)), y1 + 80 * Math.cos(jd + (Math.PI * 15 / 8)));
+        ctx.lineTo(x1 + Math.pow(2000, 1 / 2) * Math.sin(jd + (Math.PI * 2)), y1 + Math.pow(2000, 1 / 2) * Math.cos(jd + (Math.PI * 2)));
+        ctx.closePath();
+        ctx.fillStyle = color;
+        ctx.fill();
+
+    };
+    function animate() {
+        ctx.fillStyle = 'rgba(0,0,0,1)';
+        ctx.fillRect(0, 0, innerWidth, innerHeight);
+        for (var i = 0; i < array.length; i++) {
+//            array[i].beisai();
+            array[i].action();
+            array[i].line(array[i].x, array[i].y, array[i].color, array[i].sd)
+
+        }
+
+        requestAnimationFrame(animate)
+    }
+    requestAnimationFrame(animate)
+
+</script>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+
+    html, body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+    }</style>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>
+<script>
+    var array = [];
+    var canvas = document.querySelector('#canvas');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    var ctx = canvas.getContext('2d');
+
+    function Particle(x, y,vx,vy,color) {
+        this.x = x;
+        this.y = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.color = color
+    }
+    var sx, sy;
+    window.onmousemove = function (e) {
+        sx = e.offsetX;
+        sy = e.offsetY;
+        console.log(sx);
+    };
+    window.onload = function () {
+
+        var getRandomColor = function () {
+
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        };
+
+
+        for (var i = 0; i < 200; i++) {
+
+            var colo = getRandomColor()
+            var x = Math.floor(Math.random() * innerWidth);
+            var y = Math.floor(Math.random() * innerHeight);
+            var vx = (Math.random()*0.2) - 0.1;
+            var vy = (Math.random()*0.2) - 0.1;
+            array.push(new Particle(x, y,vx,vy, colo));
+        }
+    };
+
+    Particle.prototype.active = function () {
+        this.x += this.vx;
+        this.y += this.vy;
+//        this.vx = (Math.random()) - 0.5;
+//        this.vy = (Math.random()) - 0.5;
+        if(this.x>innerWidth||this.x<0){
+            this.vx = - this.vx;
+        }
+        if(this.y>innerHeight||this.y<0){
+            this.vy = -this.vy;
+        }
+    };
+
+    Particle.prototype.draw = function () {
+
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 1, 0, 2 * Math.PI)
+        ctx.fillStyle = this.color;
+
+        ctx.fill();
+    };
+
+    Particle.prototype.line = function (m, n, a, b) {
+        ctx.beginPath();
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = this.color;
+        ctx.lineWidth=0.4;
+        ctx.moveTo(m, n);
+        ctx.lineTo(a, b);
+        ctx.stroke();
+    };
+
+
+    var jh = [];
+    function animate() {
+
+        ctx.fillStyle = 'rgba(0,0,0,1)';
+
+        ctx.fillRect(0, 0, innerWidth, innerHeight);
+
+
+        for (var i = 0; i < array.length; i++) {
+
+            array[i].draw();
+            array[i].active();
+
+            var jlx = array[i].x - sx;
+            var jly = array[i].y - sy;
+            var jl = Math.sqrt(Math.abs(jly * jly + jlx * jlx));
+
+            if (jl < 150&&jl>100) {
+
+                jh.push(array[i])
+            }
+        }
+
+        for (var u1 = 0; u1 < jh.length; u1++) {
+
+            for (var u2 = 0; u2 < jh.length; u2++) {
+
+                jh[u1].line(jh[u1].x, jh[u1].y, jh[u2].x, jh[u2].y);
+
+            }
+//            jh.length = 0;
+        }
+
+        jh.length = 0;
+        requestAnimationFrame(animate)
+    }
+    requestAnimationFrame(animate)
+</script>

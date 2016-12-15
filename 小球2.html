@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<style>
+    html, body {
+        height: 100%;
+        margin: 0;
+        /*overflow: hidden;*/
+    }
+</style>
+<body>
+<canvas id="myCanvas"></canvas>
+</body>
+</html>
+<script src="jquery.js"></script>
+<script>
+    array = [];
+    function AA(a, b, vx, vy, r, color) {
+        this.x = a;
+        this.y = b;
+        this.vx = vx;
+        this.vy = vy;
+        this.r = r;
+        this.color = color;
+    }
+
+
+    var canvas = document.querySelector('#myCanvas');
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    var ctx = canvas.getContext('2d');
+
+    canvas.onclick = function (e) {
+
+        var getRandomColor = function () {
+
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        };
+
+        var colo = getRandomColor();
+        var s = Math.random() * 20 + 5;
+        var j = Math.random() * 25 + 1;
+
+//        var s = Math.random() * 2 + 3;
+//        var j = Math.random() * 2 + 1;
+
+
+        var r = Math.random() * 5 + 15;
+        array.push(new AA(e.offsetX, e.offsetY, s, j, r, colo));
+    };
+
+
+    AA.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+//        var col = ctx.createLinearGradient(0, 0, innerWidth, innerHeight);
+//        col.addColorStop(0, "blue");
+//        col.addColorStop(0.2, 'green');
+//        col.addColorStop(0.7, '#ffe');
+//        col.addColorStop(1, "red");
+        ctx.fillStyle = this.color;
+        ctx.fill();
+    };
+
+
+    AA.prototype.active = function () {
+        this.vy += 1;
+        this.x += this.vx;
+        this.y += this.vy;
+        if (this.x > innerWidth || this.x < 0) {
+            this.vx = -this.vx;
+
+        }
+        if (this.y > innerHeight) {
+            this.y = innerHeight;
+            this.vy = -this.vy / 1.2
+        }
+        if(this.vy == 0){
+
+                this.vx = this.vx/1.5
+
+        }
+
+//
+//        function peng() {
+//            console.log(this.y);
+//            for (var i = 0; i < array.length; i++) {
+//
+//
+//            }
+//            ;
+
+//        };
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        ctx.fillStyle = 'rgba(0,0,0,1)';
+
+        ctx.fillRect(0, 0, innerWidth, innerHeight);
+        for (var i = 0; i < array.length; i++) {
+            array[i].draw();
+            array[i].active();
+
+            for (var u = 0; u < array.length; u++) {
+                if (i == u) {
+                    break;
+                }
+                var jlx = array[i].x - array[u].x;
+                var jly = array[i].y - array[u].y;
+                var jl = Math.sqrt(Math.abs(jly * jly + jlx * jlx));
+
+
+                if (jl <25) {
+
+                    var sd1, sd2;
+
+                    sd1 = array[i].vx;
+
+                    array[i].vx = array[u].vx;
+
+                    array[u].vx = sd1;
+
+
+                    sd2 = array[i].vy;
+
+                    array[i].vy = array[u].vx;
+
+                    array[u].vy = sd2;
+
+                }
+
+            }
+
+        }
+    }
+
+    requestAnimationFrame(animate)
+</script>

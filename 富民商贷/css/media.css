@@ -1,0 +1,302 @@
+@media only screen and (min-width: 960px) and (max-width: 1200px) {
+	#top {
+		width: 950px;
+	}
+	#logo {
+		width: 950px;
+	}
+	#logo-right>img {
+		margin-right: 10px;
+	}
+	#nav {
+		width: 950px;
+	}
+	nav>div>ul {
+		width: 660px;
+	}
+	#login {
+		width: 148px;
+	}
+	#carousel {
+	margin-top: 10px;
+}
+#na {
+	height: 45px;
+	line-height: 45px;
+	font-size: 12px;
+}
+#new-Announcement {
+	width: 950px;
+
+}
+#buttn-more {
+	margin-left: 20px;
+	width: 70px;
+	height: 18px;
+	line-height: 18px;
+	border-radius: 9px;
+	font-size: 12px;
+}
+#advantages {
+	height: 250px;
+}
+#ad-image {
+	width: 950px;
+}
+
+#ad-image>div {
+	line-height: 250px;
+}
+#content {
+	padding: 25px;
+}
+
+#content>section {
+	width: 950px;
+
+}
+
+/*---------------公共CSS----------------*/
+.right-title {
+	font-size: 16px;
+}
+.s1 {
+	font-size: 20px;
+	margin-right: 8px;
+}
+
+.s2,
+.s3 {
+	font-size: 12px;
+}
+
+.numerial-number {
+	font-size: 30px;
+}
+.symbol {
+	font-size: 15px;
+}
+.sinogram {
+	font-size: 12px;
+}
+#button {
+	width: 80px;
+	height: 28px;
+	line-height: 28px;
+}
+
+/*进度条*/
+.progress {
+	padding: 0 10px;
+	width: 230px;
+	height: 34px;
+}
+.progress-val {
+	margin-left: 10px;
+}
+
+
+
+/*--------------------------------------*/
+
+#left {
+	width: 660px;
+}
+
+#yxlc-border {
+	width: 623px;
+	height: 248px;
+	margin: 0 18px;
+}
+#yxlc-title {
+	height: 60px;
+	line-height: 60px;
+}
+#yxlc-body {
+	margin: 8px 0;
+	height: 154px;
+}
+#yxlc-left {
+	margin-top: 10px;
+	padding-right: 15px;
+}
+#yxlc-left-title {
+	margin: 14px 0;
+	font-size: 16px;
+}
+#yxlc-left-body {
+	margin-top: 15px;
+}
+#yxlc-right-progress {
+	height: 65px;
+}
+#yxlc-right-button {
+	margin: 20px 0;
+}
+
+#banner {
+	width: 660px;
+	margin-top: 16px;
+}
+#banner img{
+	width: 660px;
+}
+#tzlc {
+	margin-top: 16px;
+}
+#tzlc-body {
+	width: 623px;
+	height: 750px;
+	margin: 0 18px;
+}
+
+#tzlc-title {
+	height: 60px;
+	line-height: 60px;
+}
+#tzlc-main {
+	padding: 16px 0;
+}
+#tzlc-xm-title {
+	font-size: 14px;
+	margin: 5px 0;
+}
+#tzlc-xm-down {
+	margin-bottom: 5px;
+}
+.tzlc-16px {
+	font-size: 14px;
+}
+
+.tzlc-16px-bold {
+	font-size: 14px;
+}
+
+.tzlc-13px {
+	font-size: 10px;
+}
+
+.tzlc-14px-blue {
+	font-size: 12px;
+}
+
+.tzlc-16px-blue {
+	font-size: 14px;
+}
+
+
+#right {
+	width: 274px;
+}
+
+#fmtj {
+	width: 274px;
+	height: 248px;
+}
+#fmtj-body {
+	margin: 0 18px;
+}
+#fmtj-title {
+	height: 60px;
+	line-height: 60px;
+}
+#fmtj-main {
+	height: 154px;
+	margin: 8px 0;
+	font-size: 12px;
+}
+#fmtj-main>div>img {
+	margin-right: 10px;
+}
+.fmtj-font-size {
+	font-size: 16px;
+}
+
+.right-public {
+	width: 274px;
+	height: 254px;
+	margin-top: 16px;
+}
+.public-body {
+	margin: 0 18px;
+}
+.public-title {
+	height: 60px;
+	line-height: 60px;
+}
+.public-main {
+	margin: 10px 0;
+}
+.public-main ul {
+	height: 160px;
+}
+.public-main ul li a{
+	font-size: 12px;
+}
+#fmb {
+	height: 249px;
+}
+#small-banner {
+	margin-top: 16px;
+}
+#small-banner img {
+	width: 274px;
+}
+#cooperate {
+	width: 950px;
+}
+#cooperate-title {
+	height: 65px;
+	line-height: 65px;
+	font-size: 18px;
+}
+#cooperate img{
+	width: 950px;
+}
+footer {
+	padding: 10px 0 30px 0;
+}
+footer section {
+	width: 950px;
+}
+
+#bottom-up {
+	padding-bottom: 5px;
+}
+#bottom-up-img  img{
+	width: 80px;
+}
+#bottom-up-words-link li a {
+	font-size: 14px;
+}
+#bottom-up-words-lxfs {
+	margin-top: 15px;
+}
+#bottom-up-words-lxfs div img {
+	margin-right: 5px;
+}
+#telphone-number,
+#email-number,
+#custom-service-number {
+	font-size: 14px;
+}
+#telphone-time {
+	font-size: 10px;
+}
+#bottom-down {
+	margin-top: 10px;
+}
+#bottom-down-img {
+	margin-right: 10px;
+}
+#bottom-down-img img {
+	width: 80px;
+	margin-right: 10px;
+}
+#bottom-down-words{
+	font-size: 12px;
+}
+#bottom-down-words a {
+	font-size: 12px;
+}
+}

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+        }
+        canvas {
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+<canvas></canvas>
+<script>
+    var canvas = document.querySelector("canvas");
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    var ctx = canvas.getContext("2d");
+
+    var fireworkArr = [];
+    var fireworkIndex = 0;
+    var particleIndex = 0;
+
+    canvas.onclick = function (event) {
+        new Firework(event.offsetX, event.offsetY);
+    };
+    function Firework(targetX, targetY) {
+        this.tailX = canvas.width / 2;
+        this.tailY = canvas.height;
+        this.headX = this.tailX;
+        this.headY = this.tailY;
+        this.targetX = targetX;
+        this.targetY = targetY;
+        this.distance = Math.sqrt(Math.pow(Math.abs(this.targetX - canvas.width / 2), 2) + Math.pow(Math.abs(this.targetY - canvas.height), 2));
+        this.hue = Math.round(Math.random() * 360);
+        this.speed = 3;
+        this.id = fireworkIndex;
+        fireworkArr[this.id] = this;
+        fireworkIndex++;
+        this.particleArr = [];
+        this.particleNum = Math.round(Math.random() * 20 + 30);
+        this.exploded = false;
+        this.size = 2;
+    }
+    Firework.prototype.draw = function () {
+        this.headX += (this.targetX - canvas.width / 2) * (this.speed / this.distance);
+        this.headY -= (canvas.height - this.targetY) * (this.speed / this.distance);
+
+        if (this.headY <= this.targetY) {
+            ctx.beginPath();
+            ctx.strokeStyle = "hsl(" + this.hue + ",100%,50%)";
+            ctx.lineWidth = this.size;
+            ctx.moveTo(this.targetX, this.targetY);
+            ctx.lineTo(this.tailX, this.tailY);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(255,255,255,0.8)";
+            ctx.lineWidth = 1;
+            ctx.moveTo(this.targetX, this.targetY);
+            ctx.lineTo(this.tailX, this.tailY);
+            ctx.stroke();
+
+            for (var i = 0; i < this.particleNum; i++) {
+                new Particle(this);
+            }
+            particleIndex = 0;
+
+            this.exploded = true;
+
+            return;
+        }
+
+        ctx.beginPath();
+        ctx.strokeStyle = "hsl(" + this.hue + ",100%,50%)";
+        ctx.lineWidth = this.size;
+        ctx.moveTo(this.tailX, this.tailY);
+        ctx.lineTo(this.headX, this.headY);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = "rgba(255,255,255,0.8)";
+        ctx.lineWidth = 1;
+        ctx.moveTo(this.tailX, this.tailY);
+        ctx.lineTo(this.headX, this.headY);
+        ctx.stroke();
+
+        this.tailX += (this.targetX - canvas.width / 2) * (this.speed / this.distance);
+        this.tailY -= (canvas.height - this.targetY) * (this.speed / this.distance);
+
+        if (this.speed < 50)
+            this.speed *= 1.15;
+    };
+
+    function Particle(firework) {
+        this.parent = firework;
+        this.x = this.parent.targetX;
+        this.y = this.parent.targetY;
+        this.size = 3;
+        this.light = Math.round(Math.random() * 20 + 60);
+        this.hue = this.parent.hue + Math.round(Math.random() * 60 - 30);
+        do {
+            this.speedX = (Math.random() * 2 * 7 - 7);
+            this.speedY = (Math.random() * 2 * 7 - 7);
+        } while (Math.sqrt(Math.pow(Math.abs(this.speedX), 2) + Math.pow(Math.abs(this.speedY), 2)) > 7);
+        this.id = particleIndex;
+        this.parent.particleArr[this.id] = this;
+        particleIndex++;
+    }
+    Particle.prototype.draw = function () {
+        ctx.beginPath();
+        ctx.fillStyle = "hsl(" + this.hue + ",100%," + this.light + "%)";
+        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        ctx.fill();
+
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        this.speedY += 0.06;
+
+        this.size -= 0.07;
+        if (this.size < 0) {
+            delete this.parent.particleArr[this.id];
+            this.parent.particleNum--;
+        }
+    };
+
+    function loop() {
+        ctx.fillStyle = "rgba(0,0,0,0.2)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (var f in fireworkArr) {
+            if (!fireworkArr[f].exploded)
+                fireworkArr[f].draw();
+            else {
+                for (var p in fireworkArr[f].particleArr) {
+                    fireworkArr[f].particleArr[p].draw();
+                }
+            }
+
+        }
+        requestAnimationFrame(loop);
+    }
+
+    requestAnimationFrame(loop);
+
+
+</script>
+</body>
+</html>
